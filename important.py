@@ -9,7 +9,7 @@ import io
 app = flask.Flask(__name__)
 
 # kui leiab drooni, siis tagastab True, kui ei leia, siis False
-def detect_drone(path):
+def detect_drone(path, side):
     """Detects labels in the file."""
 
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "vast-torus-361119-74ecb27c5856.json"
@@ -27,6 +27,9 @@ def detect_drone(path):
 
     for label in labels:
         if label.description == 'Aircraft' or label.description == 'Bird' or label.description == 'Air travel' or label.description == 'Aviation':
+            with open("/home/pi/.config/enginaator/detections.txt", "a") as f:
+                f.write(f"{side} {path}\n")
+                f.close()
             return True
         # print(label.description)
         # print(label.confidence)
@@ -58,7 +61,7 @@ def north():
         # Save the image to disk
         with open(filename, 'wb') as f:
             f.write(data)
-        detect_drone(filename)
+        detect_drone(filename, side='north')
         # Return a success message
         return 'Image saved successfully'
     else:
@@ -81,7 +84,7 @@ def east():
         # Save the image to disk
         with open(filename, 'wb') as f:
             f.write(data)
-        detect_drone(filename)
+        detect_drone(filename, side='east')
         # Return a success message
         return 'Image saved successfully'
     else:
@@ -105,7 +108,7 @@ def south():
         # Save the image to disk
         with open(filename, 'wb') as f:
             f.write(data)
-        detect_drone(filename)
+        detect_drone(filename, side='south')
         # Return a success message
         return 'Image saved successfully'
     else:
@@ -129,7 +132,7 @@ def west():
         # Save the image to disk
         with open(filename, 'wb') as f:
             f.write(data)
-        detect_drone(filename)
+        detect_drone(filename, side='west')
         # Return a success message
         return 'Image saved successfully'
     else:
