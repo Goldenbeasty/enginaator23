@@ -27,7 +27,12 @@ def detect_drone(path, side):
 
     for label in labels:
         if label.description == 'Aircraft' or label.description == 'Bird' or label.description == 'Air travel' or label.description == 'Aviation':
-            with open("/home/pi/.config/enginaator/detections.txt", "a") as f:
+            detections_file = "/home/pi/.config/enginaator/detections.txt"
+            if not os.path.exists(detections_file):
+                with open(detections_file, "w") as tf:
+                    tf.write()
+                    tf.close()
+            with open(detections_file, "a") as f:
                 f.write(f"{side} {path}\n")
                 f.close()
             return True
