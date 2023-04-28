@@ -26,7 +26,7 @@ def detect_drone(path, side):
     # print('Labels:')
 
     for label in labels:
-        if label.description == 'Aircraft' or label.description == 'Bird' or label.description == 'Air travel' or label.description == 'Aviation':
+        if label.description == 'Aircraft' or label.description == 'Bird' or label.description == 'Air travel' or label.description == 'Aviation' or label.description == 'Person' or label.description == 'Car':
             detections_file = "/home/pi/.config/enginaator/detections.txt"
             if not os.path.exists(detections_file):
                 with open(detections_file, "w") as tf:
