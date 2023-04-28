@@ -24,7 +24,7 @@ def detect_drone(path, side):
     response = client.label_detection(image=image)
     labels = response.label_annotations
     # print('Labels:')
-    paht = os.path.abspath(path)
+    path = os.path.abspath(path)
 
     for label in labels:
         if label.description == 'Aircraft' or label.description == 'Bird' or label.description == 'Air travel' or label.description == 'Aviation' or label.description == 'Person' or label.description == 'Car':
